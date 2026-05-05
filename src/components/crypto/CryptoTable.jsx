@@ -45,16 +45,16 @@ const CryptoTable = ({ coins, loading }) => {
               </td>
               <td className="py-4 font-medium">
                 $
-                {coin.current_price.toLocaleString(undefined, {
+                {(coin.current_price ?? 0).toLocaleString(undefined, {
                   minimumFractionDigits: 2,
                   maximumFractionDigits: 2,
                 })}
               </td>
               <td
-                className={`py-4 font-medium ${coin.price_change_percentage_24h >= 0 ? "text-green-600" : "text-red-500"}`}
+                className={`py-4 font-medium ${coin.change24h >= 0 ? "text-green-600" : "text-red-500"}`}
               >
                 {coin.change24h >= 0 ? "+" : ""}
-                {coin.change24h?.toFixed(2)}%
+                {(coin.change24h ?? 0).toFixed(2)}%
               </td>
               <td className="py-4 hidden md:table-cell">
                 <div className="h-8 w-24 bg-gray-100 rounded animate-pulse opacity-50"></div>
