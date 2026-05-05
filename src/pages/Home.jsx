@@ -199,7 +199,7 @@ const Home = () => {
                     <div className="text-right">
                       <div className="font-bold text-gray-900">
                         $
-                        {coin.current_price.toLocaleString(undefined, {
+                        {(coin.current_price ?? 0).toLocaleString(undefined, {
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2,
                         })}
