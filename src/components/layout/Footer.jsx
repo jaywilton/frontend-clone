@@ -10,6 +10,10 @@ const Footer = () => {
             <select className="border rounded p-2 mb-4 w-full max-w-[150px]">
               <option>English</option>
             </select>
+            <p className="text-xs text-gray-400 italic mt-2">
+              This is a student demo project for educational purposes only. Not
+              affiliated with or endorsed by Coinbase.
+            </p>
             <p>© 2022 Coinbase</p>
             <p className="mt-4">Blog • Twitter • Facebook</p>
           </div>
