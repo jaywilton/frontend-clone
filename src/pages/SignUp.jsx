@@ -1,5 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+
+const [name, setName] = useState("");
+const [email, setEmail] = useState("");
+const [password, setPassword] = useState("");
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -38,9 +42,38 @@ const Signup = () => {
 
           <form
             className="space-y-6"
-            onSubmit={(e) => {
+            onSubmit={async (e) => {
               e.preventDefault();
-              navigate("/verify");
+
+              try {
+                const res = await fetch(
+                  "https://interim-assesment-kevin-dompreh-1.onrender.com/api/auth/register",
+                  {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                      name,
+                      email,
+                      password,
+                    }),
+                  },
+                );
+
+                const data = await res.json();
+                console.log(data);
+
+                if (res.ok) {
+                  alert("Account created!");
+                  window.location.href = "/signin";
+                } else {
+                  alert(data.message || "Signup failed");
+                }
+              } catch (err) {
+                console.error(err);
+                alert("Server error");
+              }
             }}
           >
             <div className="flex flex-col sm:flex-row gap-4">
@@ -48,16 +81,9 @@ const Signup = () => {
                 <label className="text-sm font-bold">First Name*</label>
                 <input
                   type="text"
-                  placeholder="First name"
-                  className="w-full px-4 py-3 border border-gray-300 rounded focus:border-blue-500 focus:outline-none transition-colors"
-                  required
-                />
-              </div>
-              <div className="flex-1 space-y-2">
-                <label className="text-sm font-bold">Last Name*</label>
-                <input
-                  type="text"
-                  placeholder="Last Name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Full name"
                   className="w-full px-4 py-3 border border-gray-300 rounded focus:border-blue-500 focus:outline-none transition-colors"
                   required
                 />
@@ -68,7 +94,9 @@ const Signup = () => {
               <label className="text-sm font-bold">Email*</label>
               <input
                 type="email"
-                placeholder="Email"
+                placeholder="Your email address"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 className="w-full px-4 py-3 border border-gray-300 rounded focus:border-blue-500 focus:outline-none transition-colors"
                 required
               />
@@ -78,7 +106,9 @@ const Signup = () => {
               <label className="text-sm font-bold">Password*</label>
               <input
                 type="password"
-                placeholder="Minimum 8 characters"
+                placeholder="Your password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 className="w-full px-4 py-3 border border-gray-300 rounded focus:border-blue-500 focus:outline-none transition-colors"
                 required
               />

@@ -12,7 +12,7 @@ const Learn = () => {
       try {
         // Fetching trending coins from CoinGecko
         const response = await fetch(
-          "https://api.coingecko.com/api/v3/search/trending",
+          "https://interim-assesment-kevin-dompreh-1.onrender.com/api/crypto/gainers",
         );
         if (!response.ok) throw new Error("Network response was not ok");
         const data = await response.json();

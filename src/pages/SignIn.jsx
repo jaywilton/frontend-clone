@@ -1,6 +1,9 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 
+const [email, setEmail] = useState("");
+const [password, setPassword] = useState("");
+
 const SignIn = () => {
   const navigate = useNavigate();
 
@@ -28,9 +31,37 @@ const SignIn = () => {
 
           <form
             className="space-y-6"
-            onSubmit={(e) => {
+            onSubmit={async (e) => {
               e.preventDefault();
-              navigate("/dashboard");
+
+              try {
+                const res = await fetch(
+                  "https://interim-assesment-kevin-dompreh-1.onrender.com/api/auth/login",
+                  {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    credentials: "include",
+                    body: JSON.stringify({
+                      email,
+                      password,
+                    }),
+                  },
+                );
+
+                const data = await res.json();
+                console.log(data);
+
+                if (res.ok) {
+                  navigate("/dashboard");
+                } else {
+                  alert(data.message || "Login failed");
+                }
+              } catch (err) {
+                console.error(err);
+                alert("Server error");
+              }
             }}
           >
             <div className="space-y-2">
@@ -38,6 +69,8 @@ const SignIn = () => {
               <input
                 type="email"
                 placeholder="Your email address"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 className="w-full px-4 py-3 border border-gray-300 rounded focus:border-blue-500 focus:outline-none transition-colors"
                 required
               />
@@ -53,6 +86,8 @@ const SignIn = () => {
               <input
                 type="password"
                 placeholder="Your password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 className="w-full px-4 py-3 border border-gray-300 rounded focus:border-blue-500 focus:outline-none transition-colors"
                 required
               />

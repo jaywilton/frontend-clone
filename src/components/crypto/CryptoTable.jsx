@@ -53,8 +53,8 @@ const CryptoTable = ({ coins, loading }) => {
               <td
                 className={`py-4 font-medium ${coin.price_change_percentage_24h >= 0 ? "text-green-600" : "text-red-500"}`}
               >
-                {coin.price_change_percentage_24h >= 0 ? "+" : ""}
-                {coin.price_change_percentage_24h?.toFixed(2)}%
+                {coin.change24h >= 0 ? "+" : ""}
+                {coin.change24h?.toFixed(2)}%
               </td>
               <td className="py-4 hidden md:table-cell">
                 <div className="h-8 w-24 bg-gray-100 rounded animate-pulse opacity-50"></div>
