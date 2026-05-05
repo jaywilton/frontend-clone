@@ -13,8 +13,8 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="bg-yellow-400 text-black text-center text-xs py-1.5 font-medium">
-        ⚠️ This is a student demo project — not affiliated with or endorsed by
+      <div className="bg-red-400 text-black text-center text-xs py-1.5 font-medium">
+        This is a student demo project — not associated with or endorsed by
         Coinbase
       </div>
       <header className="flex items-center justify-between px-6 py-5 border-b border-gray-100 bg-white sticky top-0 z-50">
